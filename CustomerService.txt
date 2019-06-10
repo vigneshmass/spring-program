@@ -1,0 +1,35 @@
+package com.restuarant.spring_data.service;
+
+import com.restuarant.spring_data.model.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.restuarant.spring_data.repository.CustomerRepository;
+
+import java.util.List;
+
+@Service
+public class CustomerService {
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    public List<Customer> getAllcustomer()
+    {
+        return(List<Customer>) customerRepository.findAll();
+
+
+
+    }
+    public Customer getcustomer(int Id)
+    {
+
+        return customerRepository.findById(Id).get();
+    }
+
+   public Customer createUser(Customer user) {
+       return customerRepository.save(user);
+    }
+
+    //public Customer getcustomerById(int id) {
+   //}
+}
+

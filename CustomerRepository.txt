@@ -1,0 +1,8 @@
+package com.restuarant.spring_data.repository;
+
+import com.restuarant.spring_data.model.Customer;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CustomerRepository extends CrudRepository <Customer,Integer> {
+
+}

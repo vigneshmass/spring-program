@@ -1,0 +1,45 @@
+package com.restuarant.spring_data.web;
+
+import com.restuarant.spring_data.model.Customer;
+import com.restuarant.spring_data.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.awt.*;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api")
+
+public class CustomerController {
+    @Autowired
+     private CustomerService customerService;
+
+
+    @RequestMapping(value="/Customers",method= RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List< Customer > getcustomer() {
+        return customerService.getAllcustomer();
+
+
+    }
+    @RequestMapping(value="/Customers/{id}",method= RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Customer getcustomerById(@PathVariable int id ){
+        return customerService.getcustomer(id);
+
+
+
+    }
+    @RequestMapping(value="/Customers",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Customer> createUser(@RequestBody Customer  customer) {
+        //Object customer;
+        //System.out.println("Received: " + customer.getloginId() + "   " + customer.getcustomerName());
+        Customer createdUser = customerService.createUser(customer);
+        return Optional.ofNullable( createdUser )
+                .map(u -> ResponseEntity.ok().body(u))
+                .orElse(ResponseEntity.notFound().build());
+
+    }
+}
